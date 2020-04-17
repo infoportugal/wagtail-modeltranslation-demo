@@ -1,31 +1,26 @@
-from django.db import models
-from modelcluster.fields import ParentalKey
-from wagtail.core.models import Orderable, Page
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                                MultiFieldPanel)
-from wagtail.core.fields import RichTextField
-
-
-class HompageInline(Orderable):
-    page = ParentalKey('home.HomePage', related_name='inlines')
-    title = models.CharField(verbose_name='Title', max_length=50)
-    body = RichTextField(verbose_name=u'Body')
-
-    panels = [
-        MultiFieldPanel([
-            FieldPanel('title'),
-        ], heading='Title'),
-        MultiFieldPanel([
-            FieldPanel('body'),
-        ], heading='Body'),
-    ]
+from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
+                                         StreamFieldPanel)
+from wagtail.core import blocks
+from wagtail.core.fields import StreamField
+from wagtail.core.models import Page
 
 
 class HomePage(Page):
+
+    st = StreamField(
+        [
+            ('heading', blocks.CharBlock(classname="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+        ],
+        verbose_name='Stream',
+        null=True,
+        blank=True,
+    )
 
     content_panels = [
         MultiFieldPanel([
             FieldPanel('title'),
         ], heading='Title'),
-        InlinePanel('inlines', label=u'Inlines')
+
+        StreamFieldPanel('st'),
     ]

@@ -1,14 +1,10 @@
 from modeltranslation.decorators import register
 from modeltranslation.translator import TranslationOptions
 
-from .models import HomePage, HompageInline
-
-
-@register(HompageInline)
-class InlineSectionsUsefulInfoTR(TranslationOptions):
-    fields = ('title', 'body',)
+from .models import HomePage
 
 
 @register(HomePage)
-class UsefulInfoPageTR(TranslationOptions):
+class HomePageTR(TranslationOptions):
+    # fields = ('st',)
     pass
