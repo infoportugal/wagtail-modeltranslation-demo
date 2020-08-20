@@ -3,3 +3,4 @@
 .vscode
 db.sqlite3
 .python-version
+media/

@@ -6,4 +6,8 @@ from .models import HomePage
 
 @register(HomePage)
 class HomePageTR(TranslationOptions):
-    pass
+    fields = (
+        "intro_title",
+        "intro_body",
+        "intro_background",
+    )
